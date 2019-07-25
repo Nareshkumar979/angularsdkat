@@ -1,0 +1,54 @@
+<div class="container-fluid">
+    <br>
+    <h3 class="text-center">Form Validations Controls using Form Control and Form Group</h3>
+    <div class="row justify-content-center">
+        <div class="col-sm-12">
+                <form class="form-horizontal" [formGroup]="myForm">
+
+                        <div class="form-group" [ngClass]="{'alert alert-danger': myForm.get('fullname').errors && (myForm.get('fullname').touched || myForm.get('fullname').dirty)}">
+                          <div class="col-sm-12">
+                            <label for="fullname" class="control-label">Full Name</label>
+                            <input type="text" id="fullname" class="form-control" formControlName="fullname" autocomplete="off">      
+                            <div *ngIf="myForm.get('fullname').errors && (myForm.get('fullname').touched || myForm.get('fullname').dirty)">
+                                <span *ngIf="myForm.get('fullname').errors.required">Full Name is Required Field</span>
+                                <span *ngIf="myForm.get('fullname').errors.minlength || myForm.get('fullname').errors.maxlength">Full Name must be greater than 2 characters and less than 20 characters...</span>                      
+                            </div>
+                        </div>
+                        </div>
+
+                        <div class="form-group" [ngClass]="{'alert alert-danger': myForm.get('email').errors && (myForm.get('email').touched || myForm.get('email').dirty)}">
+                          <div class="col-sm-12">
+                            <label for="email" class="control-label">Email</label>
+                            <input type="text" id="email" class="form-control" formControlName="email" autocomplete="off">      
+                            <div *ngIf="myForm.get('email').errors && (myForm.get('email').touched || myForm.get('email').dirty)">
+                                <span *ngIf="myForm.get('email').errors.required && (myForm.get('email').touched || myForm.get('email').dirty)">Email is Required Field</span>
+                                <span *ngIf="myForm.get('email').errors.pattern">Email must be a valid Email Address</span>                      
+                            </div>
+                        </div>
+                        </div>
+                      
+                        <div class="form-group" [ngClass]="{'alert alert-danger': myForm.get('password').errors && (myForm.get('password').touched || myForm.get('password').dirty)}">
+                          <div class="col-sm-12">
+                            <label for="password" class="control-label">Password</label>
+                            <input type="password" id="password" class="form-control" formControlName="password" autocomplete="off">
+                            <div>Pattern: Must contain at least 6 or more characters</div>  
+                            <div *ngIf="myForm.get('password').errors && (myForm.get('password').touched || myForm.get('password').dirty)">
+                                <span *ngIf="myForm.get('password').errors.required && (myForm.get('password').touched || myForm.get('password').dirty)">Password is Required Field <br></span>                                                                            
+                                <span *ngIf="myForm.get('password').errors.minlength">Password must contain 6 or more characters... <br></span>
+                                <span *ngIf="myForm.get('password').errors.pattern">Password Does not match the Required Pattern... <br></span>                      
+                            </div>
+                        </div>
+                        </div>
+                      
+                        <button type="submit" class="btn btn-primary" [disabled]="!myForm.valid" (click)="submitForm()">
+                          Submit
+                        </button>
+                      
+                      </form>
+                      <br>
+                      <h4>Entered Form Values are: {{formDetails | json}}</h4>
+
+        </div><!-- End of Col-sm-6 -->
+    </div><!-- End of justify-content-center -->
+        
+</div>
