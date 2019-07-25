@@ -1,0 +1,107 @@
+<div class="container-fluid">
+<div appFirstdirective></div>
+<br>
+<h3 class="text-center">Employee Information System - Data & Event Binding @ Run Time along Full Text Search</h3>
+<hr><br>
+
+<div class="row">       
+        <div class="col-sm-3">
+            <div class="alert alert-danger" *ngIf="errorMessage">
+                    <strong>Oops!</strong> {{errorMessage}}.
+            </div>
+            <div class="alert alert-success" *ngIf="successMessage">
+                    <strong>Success!</strong> {{successMessage}}.
+            </div>                
+                <form action="#" *ngIf="editEmployeeInformation.length==0">
+                        <div class="form-group">
+                            <label for="name"><b>Name:</b></label>
+                            <input type="text" class="form-control" id="name" [(ngModel)]="name" [ngModelOptions]="{standalone: true}" placeholder="Enter Name of the Employee" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="email"><b>Email:</b></label>
+                            <input type="email" class="form-control" id="email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" placeholder="Enter Email Address" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="designation"><b>Designation:</b></label>
+                            <input type="text" class="form-control" id="designation" [(ngModel)]="designation" [ngModelOptions]="{standalone: true}" placeholder="Enter Designation of the Employee" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="experience"><b>Experience:</b></label>
+                            <input type="number" class="form-control" id="experience" [(ngModel)]="experience" min="0" max="30" step="0.5" [ngModelOptions]="{standalone: true}" placeholder="Enter Years of Experience" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="expertise"><b>Area of Expertise:</b></label>
+                            <input type="text" class="form-control" id="expertise" [(ngModel)]="expertise" [ngModelOptions]="{standalone: true}" placeholder="Enter Area of Expertise" autocomplete="off">
+                        </div>            
+                        <button type="submit" class="btn btn-success" (click)="saveEmployeeInformation()">Add Employee</button>
+                        <br><br>    
+                    </form>
+                    
+                    <form action="#" *ngIf="editEmployeeInformation.length!=0">
+                            <div class="form-group">
+                                <label for="name"><b>Names:</b></label>
+                                <input type="hidden" class="form-control" id="editId" [(ngModel)]="editID" [ngModelOptions]="{standalone: true}"  autocomplete="off">
+                                <input type="text" class="form-control" id="name" [(ngModel)]="name" [ngModelOptions]="{standalone: true}" placeholder="Enter Name of the Employee" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label for="email"><b>Email:</b></label>
+                                <input type="email" class="form-control" id="email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}" placeholder="Enter Email Address" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label for="designation"><b>Designation:</b></label>
+                                <input type="text" class="form-control" id="designation" [(ngModel)]="designation" [ngModelOptions]="{standalone: true}" placeholder="Enter Designation of the Employee" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label for="experience"><b>Experience:</b></label>
+                                <input type="number" class="form-control" id="experience" [(ngModel)]="experience" min="0" max="30" step="0.5" [ngModelOptions]="{standalone: true}" placeholder="Enter Years of Experience" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label for="expertise"><b>Area of Expertise:</b></label>
+                                <input type="text" class="form-control" id="expertise" [(ngModel)]="expertise" [ngModelOptions]="{standalone: true}" placeholder="Enter Area of Expertise" autocomplete="off">
+                            </div>            
+                            <button type="submit" class="btn btn-warning" (click)="updateEmployeeInformation()">Update Employee</button>
+                            <br><br>    
+                        </form>
+        
+        
+        
+         
+        </div><!-- End of Col-sm-3 -->
+        <div class="col-sm-9"> 
+            <form class="pull-right">
+                    <div class="form-group">
+                            <label for="searchEmployeeInformation"><b>Search Employee Information:</b></label>
+                            <input type="text" class="form-control" id="searchEmployee" [(ngModel)]="searchEmployeeInformation" [ngModelOptions]="{standalone: true}" placeholder="Enter Search Information" autocomplete="off">
+                    </div> 
+            </form>           
+                <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>S.No</th>
+                                <th>NAME</th>                                
+                                <th>EMAIL</th>
+                                <th>DESIGNATION</th>
+                                <th>EXPERIENCE</th>
+                                <th>AREA OF EXPERTISE</th>
+                                <th>ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngIf="listofEmployees.length==0"><td colspan="7" class="text-center">NO DATA FOUND</td></tr>
+                            <tr *ngFor="let singleEmployee of listofEmployees | filter: searchEmployeeInformation; let i=index">
+                                <td>{{i+1}}</td>
+                                <td>{{singleEmployee.name}}</td>                                
+                                <td>{{singleEmployee.email}}</td>
+                                <td>{{singleEmployee.designation}}</td>
+                                <td>{{singleEmployee.experience}}</td>
+                                <td>{{singleEmployee.expertise}}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-warning" title="Edit" (click)="editSingleEmployee(i)"><i class="fa fa-pencil" aria-hidden="true"></i></button> &nbsp; 
+                                    <button class="btn btn-sm btn-danger" title="Delete" (click)="deleteSingleEmployee(i)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                </td>    
+                            </tr>                            
+                        </tbody>
+                        </table>
+        </div><!-- End of Col-sm-9 -->    
+</div><!-- End of Row -->
+</div><!-- End of Container -->
